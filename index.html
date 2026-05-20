@@ -7,17 +7,69 @@
 </head>
 <body>
 
-<div class="container">
-    <h1>MNIST 手写数字生成器</h1>
-    <p>输入 0-9 的数字，生成对应的手写数字图片</p>
+<div class="app">
+    <div class="left-panel">
+        <h1>MNIST 手写数字生成器</h1>
+        <p class="subtitle">基于 Conditional GAN 的交互式数字图像生成演示系统</p>
 
-    <div class="card">
-        <input id="digitInput" type="number" min="0" max="9" placeholder="请输入 0-9">
-        <button onclick="generateDigit()">生成图片</button>
+        <div class="control-card">
+            <label>选择数字</label>
+            <input id="digitInput" type="number" min="0" max="9" placeholder="0-9">
 
-        <div class="result">
-            <p id="status">等待输入...</p>
-            <img id="resultImage" src="" alt="生成结果">
+            <label>生成风格</label>
+
+            <div class="style-grid">
+
+            <div class="style-option active"
+            onclick="selectStyle(this,'clean')">
+            工整
+            </div>
+
+            <div class="style-option"
+            onclick="selectStyle(this,'sloppy')">
+            潦草
+            </div>
+
+            <div class="style-option"
+            onclick="selectStyle(this,'bold')">
+            粗体
+            </div>
+
+            <div class="style-option"
+            onclick="selectStyle(this,'tilt')">
+            倾斜
+            </div>
+
+            </div>
+
+            <input type="hidden"
+            id="styleSelect"
+            value="clean">
+
+            <button onclick="generateDigit()">开始生成</button>
+        </div>
+
+        <div class="info-card">
+            <h3>项目创新点</h3>
+            <p>在传统 MNIST 数字生成基础上，加入风格控制与网页交互展示，使模型结果更直观、更易演示。</p>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="result-card">
+            <h2>生成结果</h2>
+
+            <div id="loading" class="loading hidden">
+                <div class="loader"></div>
+                <p>AI 正在生成手写数字...</p>
+            </div>
+
+            <div class="image-box">
+                <img id="resultImage" src="" alt="生成结果">
+                <div id="placeholder">等待生成</div>
+            </div>
+
+            <p id="status">请输入数字并选择风格</p>
         </div>
     </div>
 </div>
