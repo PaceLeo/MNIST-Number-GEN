@@ -2,78 +2,249 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>MNIST 手写数字生成器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNIST Number GEN | AI Handwritten Digit Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="app">
-    <div class="left-panel">
-        <h1>MNIST 手写数字生成器</h1>
-        <p class="subtitle">基于 Conditional GAN 的交互式数字图像生成演示系统</p>
-
-        <div class="control-card">
-            <label>选择数字</label>
-            <input id="digitInput" type="number" min="0" max="9" placeholder="0-9">
-
-            <label>生成风格</label>
-
-            <div class="style-grid">
-
-            <div class="style-option active"
-            onclick="selectStyle(this,'clean')">
-            工整
-            </div>
-
-            <div class="style-option"
-            onclick="selectStyle(this,'sloppy')">
-            潦草
-            </div>
-
-            <div class="style-option"
-            onclick="selectStyle(this,'bold')">
-            粗体
-            </div>
-
-            <div class="style-option"
-            onclick="selectStyle(this,'tilt')">
-            倾斜
-            </div>
-
-            </div>
-
-            <input type="hidden"
-            id="styleSelect"
-            value="clean">
-
-            <button onclick="generateDigit()">开始生成</button>
-        </div>
-
-        <div class="info-card">
-            <h3>项目创新点</h3>
-            <p>在传统 MNIST 数字生成基础上，加入风格控制与网页交互展示，使模型结果更直观、更易演示。</p>
-        </div>
+    <!-- 背景装饰 -->
+    <div class="background">
+        <div class="gradient-orb orb-green"></div>
+        <div class="gradient-orb orb-blue"></div>
+        <div class="gradient-orb orb-purple"></div>
+        <div class="grid-bg"></div>
     </div>
 
-    <div class="right-panel">
-        <div class="result-card">
-            <h2>生成结果</h2>
-
-            <div id="loading" class="loading hidden">
-                <div class="loader"></div>
-                <p>AI 正在生成手写数字...</p>
+    <!-- 顶部导航栏 -->
+    <header class="navbar">
+        <div class="brand">
+            <div class="brand-icon">AI</div>
+            <div>
+                <h2>MNIST Number GEN</h2>
+                <span>Conditional GAN Demo Platform</span>
             </div>
-
-            <div class="image-box">
-                <img id="resultImage" src="" alt="生成结果">
-                <div id="placeholder">等待生成</div>
-            </div>
-
-            <p id="status">请输入数字并选择风格</p>
         </div>
-    </div>
-</div>
 
-<script src="script.js"></script>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            <span>Local AI Service</span>
+        </div>
+    </header>
+
+    <!-- 主体 -->
+    <main class="dashboard">
+
+        <!-- 左侧控制区 -->
+        <section class="panel control-panel">
+
+            <div class="section-header">
+                <span class="tag">INPUT CONTROL</span>
+                <h1>AI 手写数字生成器</h1>
+                <p>
+                    基于 Conditional GAN 的交互式 MNIST 手写数字图像生成系统。
+                    用户可以指定数字类别与生成风格，并实时查看模型输出结果。
+                </p>
+            </div>
+
+            <!-- 数字选择 -->
+            <div class="control-block">
+                <div class="block-title">
+                    <span>01</span>
+                    <h3>选择目标数字</h3>
+                </div>
+
+                <div class="digit-grid">
+                    <button class="digit-btn active" onclick="selectDigit(this, 0)">0</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 1)">1</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 2)">2</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 3)">3</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 4)">4</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 5)">5</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 6)">6</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 7)">7</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 8)">8</button>
+                    <button class="digit-btn" onclick="selectDigit(this, 9)">9</button>
+                </div>
+
+                <input type="hidden" id="digitInput" value="0">
+            </div>
+
+            <!-- 风格选择 -->
+            <div class="control-block">
+                <div class="block-title">
+                    <span>02</span>
+                    <h3>选择生成风格</h3>
+                </div>
+
+                <div class="style-grid">
+                    <div class="style-option active" onclick="selectStyle(this, 'clean')">
+                        <strong>工整</strong>
+                        <small>Clean Style</small>
+                    </div>
+
+                    <div class="style-option" onclick="selectStyle(this, 'sloppy')">
+                        <strong>潦草</strong>
+                        <small>Sloppy Style</small>
+                    </div>
+
+                    <div class="style-option" onclick="selectStyle(this, 'bold')">
+                        <strong>粗体</strong>
+                        <small>Bold Stroke</small>
+                    </div>
+
+                    <div class="style-option" onclick="selectStyle(this, 'thin')">
+                        <strong>细体</strong>
+                        <small>Thin Stroke</small>
+                    </div>
+
+                    <div class="style-option" onclick="selectStyle(this, 'tilt')">
+                        <strong>倾斜</strong>
+                        <small>Tilted Shape</small>
+                    </div>
+
+                    <div class="style-option" onclick="selectStyle(this, 'random')">
+                        <strong>随机</strong>
+                        <small>Random Seed</small>
+                    </div>
+                </div>
+
+                <input type="hidden" id="styleSelect" value="clean">
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="action-row">
+                <button class="primary-btn" onclick="generateDigit()">
+                    <span>开始生成</span>
+                    <b>Generate</b>
+                </button>
+
+                <button class="secondary-btn" onclick="resetResult()">
+                    重置
+                </button>
+            </div>
+
+        </section>
+
+        <!-- 中间结果展示区 -->
+        <section class="panel result-panel">
+
+            <div class="result-header">
+                <div>
+                    <span class="tag">MODEL OUTPUT</span>
+                    <h2>生成结果</h2>
+                </div>
+
+                <div class="model-badge">
+                    CGAN
+                </div>
+            </div>
+
+            <div class="generation-stage">
+
+                <div id="loading" class="loading hidden">
+                    <div class="ai-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <p>AI 正在分析数字条件与风格参数...</p>
+                </div>
+
+                <div class="image-box" id="imageBox">
+                    <div id="placeholder" class="placeholder">
+                        <div class="placeholder-icon">✦</div>
+                        <p>等待生成</p>
+                        <small>Choose a digit and click Generate</small>
+                    </div>
+
+                    <img id="resultImage" src="" alt="生成的手写数字图片">
+                </div>
+
+                <p id="status" class="status-text">
+                    系统已就绪，请选择数字与风格。
+                </p>
+
+            </div>
+
+            <!-- 参数显示 -->
+            <div class="meta-grid">
+                <div class="meta-card">
+                    <span>Target Digit</span>
+                    <strong id="metaDigit">0</strong>
+                </div>
+
+                <div class="meta-card">
+                    <span>Style Mode</span>
+                    <strong id="metaStyle">clean</strong>
+                </div>
+
+                <div class="meta-card">
+                    <span>Backend API</span>
+                    <strong>127.0.0.1:5000</strong>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 右侧信息区 -->
+        <aside class="panel info-panel">
+
+            <div class="info-block">
+                <span class="tag">PROJECT</span>
+                <h3>项目创新点</h3>
+
+                <ul>
+                    <li>多条件输入：数字类别 + 生成风格</li>
+                    <li>前后端分离：预留 Flask / AI 模型接口</li>
+                    <li>企业级交互界面：实时状态、动画反馈、参数展示</li>
+                    <li>适配多设备：电脑、平板、手机均可展示</li>
+                </ul>
+            </div>
+
+            <div class="info-block">
+                <span class="tag">PIPELINE</span>
+                <h3>生成流程</h3>
+
+                <div class="pipeline">
+                    <div>
+                        <b>01</b>
+                        <span>选择数字</span>
+                    </div>
+                    <div>
+                        <b>02</b>
+                        <span>设置风格</span>
+                    </div>
+                    <div>
+                        <b>03</b>
+                        <span>请求后端</span>
+                    </div>
+                    <div>
+                        <b>04</b>
+                        <span>返回图像</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-block">
+                <span class="tag">HISTORY</span>
+                <h3>生成记录</h3>
+
+                <div id="historyList" class="history-list">
+                    <p class="empty-history">暂无生成记录</p>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer class="footer">
+        <span>MNIST Handwritten Digit Generator</span>
+        <span>AI Introduction Course Project</span>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
