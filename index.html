@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>MNIST 手写数字生成器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>MNIST 手写数字生成器</h1>
+    <p>输入 0-9 的数字，生成对应的手写数字图片</p>
+
+    <div class="card">
+        <input id="digitInput" type="number" min="0" max="9" placeholder="请输入 0-9">
+        <button onclick="generateDigit()">生成图片</button>
+
+        <div class="result">
+            <p id="status">等待输入...</p>
+            <img id="resultImage" src="" alt="生成结果">
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
