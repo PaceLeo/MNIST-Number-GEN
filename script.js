@@ -29,6 +29,7 @@ function selectStyle(element, style) {
 }
 
 async function generateDigit() {
+    document.body.classList.add("show-result-page");
     const digit = document.getElementById("digitInput").value;
     const thickness = document.getElementById("thicknessInput").value;
     const slant = document.getElementById("slantInput").value;
@@ -157,3 +158,6 @@ function updateRangeValue(type) {
     }
 }
 
+function backToInput() {
+    document.body.classList.remove("show-result-page");
+}

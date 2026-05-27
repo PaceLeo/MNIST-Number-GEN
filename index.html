@@ -185,6 +185,7 @@
 
         <!-- 中间结果展示区 -->
         <section class="panel result-panel">
+            <button class="back-btn" onclick="backToInput()">← 返回参数设置</button>
 
             <div class="result-header">
                 <div>
@@ -244,55 +245,6 @@
 
         </section>
 
-        <!-- 右侧信息区 -->
-        <aside class="panel info-panel">
-
-            <div class="info-block">
-                <span class="tag">PROJECT</span>
-                <h3>项目创新点</h3>
-
-                <ul>
-                    <li>多条件输入：数字类别 + 生成风格</li>
-                    <li>前后端分离：预留 Flask / AI 模型接口</li>
-                    <li>企业级交互界面：实时状态、动画反馈、参数展示</li>
-                    <li>适配多设备：电脑、平板、手机均可展示</li>
-                </ul>
-            </div>
-
-            <div class="info-block">
-                <span class="tag">PIPELINE</span>
-                <h3>生成流程</h3>
-
-                <div class="pipeline">
-                    <div>
-                        <b>01</b>
-                        <span>选择数字</span>
-                    </div>
-                    <div>
-                        <b>02</b>
-                        <span>设置风格</span>
-                    </div>
-                    <div>
-                        <b>03</b>
-                        <span>请求后端</span>
-                    </div>
-                    <div>
-                        <b>04</b>
-                        <span>返回图像</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="info-block">
-                <span class="tag">HISTORY</span>
-                <h3>生成记录</h3>
-
-                <div id="historyList" class="history-list">
-                    <p class="empty-history">暂无生成记录</p>
-                </div>
-            </div>
-
-        </aside>
 
     </main>
 

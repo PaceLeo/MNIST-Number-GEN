@@ -1084,3 +1084,58 @@ font-size:15px;
 background:#0f172a;
 
 }
+
+/* 删除右侧信息区后的双栏布局 */
+.dashboard {
+    grid-template-columns: 1fr 1fr;
+}
+
+/* 返回按钮：电脑端隐藏，手机端显示 */
+.back-btn {
+    display: none;
+}
+
+/* 手机端：默认只显示输入界面 */
+@media (max-width: 900px) {
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .result-panel {
+        display: none;
+    }
+
+    body.show-result-page .control-panel {
+        display: none;
+    }
+
+    body.show-result-page .result-panel {
+        display: block;
+    }
+
+    .back-btn {
+        display: block;
+        width: 100%;
+        height: 48px;
+        margin-bottom: 18px;
+        border: none;
+        border-radius: 16px;
+        background: rgba(255,255,255,.08);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .footer {
+        display: none;
+    }
+}
+
+/* 电脑端结果和输入平铺 */
+@media (min-width: 901px) {
+    .control-panel,
+    .result-panel {
+        min-height: 720px;
+    }
+}
