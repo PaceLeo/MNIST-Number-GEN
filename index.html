@@ -17,22 +17,6 @@
         <div class="grid-bg"></div>
     </div>
 
-    <!-- 顶部导航栏 -->
-    <header class="navbar">
-        <div class="brand">
-            <div class="brand-icon">AI</div>
-            <div>
-                <h2>MNIST Number GEN</h2>
-                <span>Conditional GAN Demo Platform</span>
-            </div>
-        </div>
-
-        <div class="nav-status">
-            <span class="status-dot"></span>
-            <span>Local AI Service</span>
-        </div>
-    </header>
-
     <!-- 主体 -->
     <main class="dashboard">
 
@@ -75,98 +59,44 @@
             <div class="control-block">
                 <div class="block-title">
                     <span>02</span>
-                    <h3>选择生成风格</h3>
+                    <h3>调整生成参数</h3>
                 </div>
 
-                <div class="style-grid">
-                    <div class="style-option active" onclick="selectStyle(this, 'clean')">
-                        <strong>工整</strong>
-                        <small>Clean Style</small>
+                <div class="advanced-controls">
+
+                    <div class="range-control">
+                        <div class="range-label">
+                            <span>粗细程度 Thickness</span>
+                            <b id="thicknessValue">0.6</b>
+                        </div>
+                        <input 
+                            type="range" 
+                            id="thicknessInput" 
+                            min="0.1" 
+                            max="1.0" 
+                            step="0.1" 
+                            value="0.6"
+                            oninput="updateRangeValue('thickness')"
+                        >
                     </div>
 
-                    <div class="style-option" onclick="selectStyle(this, 'sloppy')">
-                        <strong>潦草</strong>
-                        <small>Sloppy Style</small>
+                    <div class="range-control">
+                        <div class="range-label">
+                            <span>倾斜程度 Slant</span>
+                            <b id="slantValue">0.5</b>
+                        </div>
+                        <input 
+                            type="range" 
+                            id="slantInput" 
+                            min="-1.0" 
+                            max="1.0" 
+                            step="0.1" 
+                            value="0.5"
+                            oninput="updateRangeValue('slant')"
+                        >
                     </div>
 
-                    <div class="style-option" onclick="selectStyle(this, 'bold')">
-                        <strong>粗体</strong>
-                        <small>Bold Stroke</small>
-                    </div>
-
-                    <div class="style-option" onclick="selectStyle(this, 'thin')">
-                        <strong>细体</strong>
-                        <small>Thin Stroke</small>
-                    </div>
-
-                    <div class="style-option" onclick="selectStyle(this, 'tilt')">
-                        <strong>倾斜</strong>
-                        <small>Tilted Shape</small>
-                    </div>
-
-                    <div class="style-option" onclick="selectStyle(this, 'random')">
-                        <strong>随机</strong>
-                        <small>Random Seed</small>
-                    </div>
                 </div>
-
-                <input type="hidden" id="styleSelect" value="clean">
-                    <!-- 生成参数 -->
-    <div class="advanced-controls">
-
-    <div class="range-control">
-        <div class="range-label">
-            <span>粗细程度 Thickness</span>
-            <b id="thicknessValue">0.6</b>
-        </div>
-        <input 
-            type="range" 
-            id="thicknessInput" 
-            min="0.1" 
-            max="1.0" 
-            step="0.1" 
-            value="0.6"
-            oninput="updateRangeValue('thickness')"
-        >
-    </div>
-
-    <div class="range-control">
-        <div class="range-label">
-            <span>倾斜程度 Slant</span>
-            <b id="slantValue">0.5</b>
-        </div>
-        <input 
-            type="range" 
-            id="slantInput" 
-            min="-1.0" 
-            max="1.0" 
-            step="0.1" 
-            value="0.5"
-            oninput="updateRangeValue('slant')"
-        >
-    </div>
-
-    <div class="param-row">
-        <div>
-            <label>生成数量</label>
-            <input id="numInput" type="number" value="16" min="1" max="64">
-        </div>
-
-        <div>
-            <label>每行数量</label>
-            <input id="nrowInput" type="number" value="8" min="1" max="16">
-        </div>
-    </div>
-
-    <div class="clean-toggle">
-        <span>图像清理 Clean</span>
-        <select id="cleanInput">
-            <option value="1">开启</option>
-            <option value="0">关闭</option>
-        </select>
-    </div>
-
-</div>
             </div>
 
             <!-- 操作按钮 -->
@@ -219,28 +149,6 @@
                     <img id="resultImage" src="" alt="生成的手写数字图片">
                 </div>
 
-                <p id="status" class="status-text">
-                    系统已就绪，请选择数字与风格。
-                </p>
-
-            </div>
-
-            <!-- 参数显示 -->
-            <div class="meta-grid">
-                <div class="meta-card">
-                    <span>Target Digit</span>
-                    <strong id="metaDigit">0</strong>
-                </div>
-
-                <div class="meta-card">
-                    <span>Style Mode</span>
-                    <strong id="metaStyle">clean</strong>
-                </div>
-
-                <div class="meta-card">
-                    <span>Backend API</span>
-                    <strong>127.0.0.1:5000</strong>
-                </div>
             </div>
 
         </section>
