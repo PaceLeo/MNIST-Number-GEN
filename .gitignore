@@ -1,0 +1,4 @@
+data/
+cgan-images-256-clean/
+checkpoints_256_clean/
+*.pyc
