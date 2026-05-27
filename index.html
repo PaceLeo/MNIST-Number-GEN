@@ -111,6 +111,62 @@
                 </div>
 
                 <input type="hidden" id="styleSelect" value="clean">
+                    <!-- 生成参数 -->
+    <div class="advanced-controls">
+
+    <div class="range-control">
+        <div class="range-label">
+            <span>粗细程度 Thickness</span>
+            <b id="thicknessValue">0.6</b>
+        </div>
+        <input 
+            type="range" 
+            id="thicknessInput" 
+            min="0.1" 
+            max="1.0" 
+            step="0.1" 
+            value="0.6"
+            oninput="updateRangeValue('thickness')"
+        >
+    </div>
+
+    <div class="range-control">
+        <div class="range-label">
+            <span>倾斜程度 Slant</span>
+            <b id="slantValue">0.5</b>
+        </div>
+        <input 
+            type="range" 
+            id="slantInput" 
+            min="-1.0" 
+            max="1.0" 
+            step="0.1" 
+            value="0.5"
+            oninput="updateRangeValue('slant')"
+        >
+    </div>
+
+    <div class="param-row">
+        <div>
+            <label>生成数量</label>
+            <input id="numInput" type="number" value="16" min="1" max="64">
+        </div>
+
+        <div>
+            <label>每行数量</label>
+            <input id="nrowInput" type="number" value="8" min="1" max="16">
+        </div>
+    </div>
+
+    <div class="clean-toggle">
+        <span>图像清理 Clean</span>
+        <select id="cleanInput">
+            <option value="1">开启</option>
+            <option value="0">关闭</option>
+        </select>
+    </div>
+
+</div>
             </div>
 
             <!-- 操作按钮 -->

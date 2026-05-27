@@ -30,7 +30,11 @@ function selectStyle(element, style) {
 
 async function generateDigit() {
     const digit = document.getElementById("digitInput").value;
-    const style = document.getElementById("styleSelect").value;
+    const thickness = document.getElementById("thicknessInput").value;
+    const slant = document.getElementById("slantInput").value;
+    const num = document.getElementById("numInput").value;
+    const nrow = document.getElementById("nrowInput").value;
+    const clean = document.getElementById("cleanInput").value;
 
     const status = document.getElementById("status");
     const image = document.getElementById("resultImage");
@@ -38,35 +42,28 @@ async function generateDigit() {
     const placeholder = document.getElementById("placeholder");
     const imageBox = document.getElementById("imageBox");
 
-    status.innerText = "AI 正在分析输入条件...";
+    status.innerText = "AI 正在根据粗细与倾斜参数生成图像...";
     image.style.display = "none";
     placeholder.style.display = "none";
     loading.classList.remove("hidden");
     imageBox.classList.add("generating");
 
+    const backendUrl =
+    `http://101.76.221.147:8000/generate?digit=${digit}&num=${num}&nrow=${nrow}&thickness=${thickness}&slant=${slant}&clean=${clean}`;
     try {
-        const response = await fetch("http://127.0.0.1:5000/generate", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                digit: Number(digit),
-                style: style
-            })
-        });
+        const response = await fetch(backendUrl);
 
-        const data = await response.json();
+        if (!response.ok) {
+            throw new Error("后端返回错误");
+        }
+
+        const blob = await response.blob();
+        const imageUrl = URL.createObjectURL(blob);
 
         loading.classList.add("hidden");
         imageBox.classList.remove("generating");
 
-        if (data.success) {
-            showResult(data.image_url, digit, style, false);
-        } else {
-            status.innerText = "生成失败：" + data.message;
-            placeholder.style.display = "block";
-        }
+        showResult(imageUrl, digit, `thickness=${thickness}, slant=${slant}`, false);
 
     } catch (error) {
         setTimeout(() => {
@@ -76,8 +73,8 @@ async function generateDigit() {
             const demoImage =
                 "https://dummyimage.com/280x280/ffffff/000000&text=" + digit;
 
-            showResult(demoImage, digit, style, true);
-        }, 1000);
+            showResult(demoImage, digit, `thickness=${thickness}, slant=${slant}`, true);
+        }, 800);
     }
 }
 
@@ -146,5 +143,17 @@ function resetResult() {
     imageBox.classList.remove("generating");
 
     status.innerText = "系统已重置，请重新选择数字与风格。";
+}
+
+function updateRangeValue(type) {
+    if (type === "thickness") {
+        const value = document.getElementById("thicknessInput").value;
+        document.getElementById("thicknessValue").innerText = value;
+    }
+
+    if (type === "slant") {
+        const value = document.getElementById("slantInput").value;
+        document.getElementById("slantValue").innerText = value;
+    }
 }
 
